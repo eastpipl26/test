@@ -1,14 +1,75 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── 테마 변수 ── */
+:root {
+  --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --text: #fff;
+  --subtitle: #aaa;
+  --plus-color: #aaa;
+  --btn-clear-border: #555;
+  --btn-clear-color: #aaa;
+  --btn-clear-hover-color: #fff;
+  --history-border: #ffffff10;
+  --history-title: #888;
+  --mini-plus: #666;
+  --row-num: #555;
+  --scrollbar: #333;
+  --theme-btn-bg: rgba(255,255,255,0.1);
+  --theme-btn-color: #ccc;
+  --theme-btn-border: rgba(255,255,255,0.2);
+}
+
+body.light {
+  --bg: linear-gradient(135deg, #f0f4ff 0%, #e8eef8 50%, #dce6f5 100%);
+  --text: #1a1a2e;
+  --subtitle: #666;
+  --plus-color: #999;
+  --btn-clear-border: #ccc;
+  --btn-clear-color: #777;
+  --btn-clear-hover-color: #1a1a2e;
+  --history-border: #00000012;
+  --history-title: #999;
+  --mini-plus: #bbb;
+  --row-num: #bbb;
+  --scrollbar: #ccc;
+  --theme-btn-bg: rgba(0,0,0,0.07);
+  --theme-btn-color: #555;
+  --theme-btn-border: rgba(0,0,0,0.15);
+}
+
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Segoe UI', sans-serif;
-  color: #fff;
+  color: var(--text);
+  transition: background 0.4s, color 0.3s;
 }
+
+/* ── 테마 토글 버튼 ── */
+.theme-toggle {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--theme-btn-border);
+  background: var(--theme-btn-bg);
+  color: var(--theme-btn-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: background 0.3s, border-color 0.3s, transform 0.2s;
+  z-index: 100;
+}
+
+.theme-toggle:hover { transform: scale(1.12); }
 
 .container {
   text-align: center;
@@ -28,12 +89,13 @@ h1 {
 }
 
 .subtitle {
-  color: #aaa;
+  color: var(--subtitle);
   font-size: 0.9rem;
   margin-bottom: 40px;
+  transition: color 0.3s;
 }
 
-/* 번호 공들 */
+/* ── 번호 공들 ── */
 .balls-wrap {
   display: flex;
   justify-content: center;
@@ -66,13 +128,13 @@ h1 {
 }
 
 /* 번호대별 색상 */
-.ball.y1  { background: radial-gradient(circle at 35% 35%, #ffdd57, #f7b731); } /* 1~10 */
-.ball.y2  { background: radial-gradient(circle at 35% 35%, #74b9ff, #0984e3); } /* 11~20 */
-.ball.y3  { background: radial-gradient(circle at 35% 35%, #fd79a8, #e84393); } /* 21~30 */
-.ball.y4  { background: radial-gradient(circle at 35% 35%, #a29bfe, #6c5ce7); } /* 31~40 */
-.ball.y5  { background: radial-gradient(circle at 35% 35%, #55efc4, #00b894); } /* 41~45 */
+.ball.y1, .mini-ball.y1 { background: radial-gradient(circle at 35% 35%, #ffdd57, #f7b731); } /* 1~10 */
+.ball.y2, .mini-ball.y2 { background: radial-gradient(circle at 35% 35%, #74b9ff, #0984e3); } /* 11~20 */
+.ball.y3, .mini-ball.y3 { background: radial-gradient(circle at 35% 35%, #fd79a8, #e84393); } /* 21~30 */
+.ball.y4, .mini-ball.y4 { background: radial-gradient(circle at 35% 35%, #a29bfe, #6c5ce7); } /* 31~40 */
+.ball.y5, .mini-ball.y5 { background: radial-gradient(circle at 35% 35%, #55efc4, #00b894); } /* 41~45 */
 
-/* 보너스 번호 */
+/* ── 보너스 번호 ── */
 .bonus-wrap {
   display: flex;
   justify-content: center;
@@ -84,10 +146,10 @@ h1 {
 
 .plus-sign {
   font-size: 2rem;
-  color: #aaa;
+  color: var(--plus-color);
   font-weight: 300;
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.4s, color 0.3s;
 }
 
 .plus-sign.show { opacity: 1; }
@@ -106,7 +168,7 @@ h1 {
 
 .bonus-col { text-align: center; }
 
-/* 버튼 */
+/* ── 버튼 ── */
 .btn {
   padding: 16px 60px;
   font-size: 1.1rem;
@@ -127,29 +189,31 @@ h1 {
 
 .btn-clear {
   background: transparent;
-  border: 2px solid #555;
-  color: #aaa;
+  border: 2px solid var(--btn-clear-border);
+  color: var(--btn-clear-color);
   box-shadow: none;
   font-size: 0.95rem;
   padding: 14px 40px;
+  transition: transform 0.15s, border-color 0.3s, color 0.3s;
 }
 
-.btn-clear:hover { border-color: #aaa; color: #fff; box-shadow: none; transform: none; }
+.btn-clear:hover { border-color: var(--btn-clear-hover-color); color: var(--btn-clear-hover-color); box-shadow: none; transform: none; }
 
-/* 히스토리 */
+/* ── 히스토리 ── */
 .history-title {
   font-size: 0.85rem;
-  color: #888;
+  color: var(--history-title);
   margin: 30px 0 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
+  transition: color 0.3s;
 }
 
 .history {
   max-height: 260px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #333 transparent;
+  scrollbar-color: var(--scrollbar) transparent;
 }
 
 .history-row {
@@ -158,8 +222,9 @@ h1 {
   justify-content: center;
   gap: 8px;
   padding: 10px 0;
-  border-bottom: 1px solid #ffffff10;
+  border-bottom: 1px solid var(--history-border);
   animation: fadeIn 0.3s ease;
+  transition: border-color 0.3s;
 }
 
 @keyframes fadeIn {
@@ -180,11 +245,12 @@ h1 {
   box-shadow: 0 3px 8px rgba(0,0,0,0.3);
 }
 
-.mini-plus { color: #666; font-size: 1rem; }
+.mini-plus { color: var(--mini-plus); font-size: 1rem; transition: color 0.3s; }
 
 .row-num {
   font-size: 0.75rem;
-  color: #555;
+  color: var(--row-num);
   min-width: 24px;
   text-align: right;
+  transition: color 0.3s;
 }

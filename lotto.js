@@ -1,3 +1,27 @@
+/* ── 테마 ── */
+(function () {
+  const saved = localStorage.getItem('theme') || 'dark';
+  if (saved === 'light') document.body.classList.add('light');
+  updateThemeIcon(saved);
+})();
+
+function updateThemeIcon(theme) {
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.textContent = theme === 'light' ? '🌙' : '☀️';
+}
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  const theme = isLight ? 'light' : 'dark';
+  localStorage.setItem('theme', theme);
+  updateThemeIcon(theme);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+});
+
+/* ── 로또 로직 ── */
 const ballColors = n => {
   if (n <= 10) return 'y1';
   if (n <= 20) return 'y2';
