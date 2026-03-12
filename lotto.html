@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로또 추첨기</title>
+  <link rel="stylesheet" href="lotto.css">
+</head>
+<body>
+<div class="container">
+  <h1>🍀 로또 추첨기</h1>
+  <p class="subtitle">1~45 중 6개 + 보너스 1개</p>
+
+  <div class="balls-wrap" id="ballsWrap"></div>
+
+  <div class="bonus-wrap" id="bonusWrap">
+    <div class="plus-sign" id="plusSign">+</div>
+    <div class="bonus-col">
+      <div class="bonus-label" id="bonusLabel">BONUS</div>
+      <div id="bonusBall"></div>
+    </div>
+  </div>
+
+  <div>
+    <button class="btn" id="drawBtn" onclick="draw()">추첨하기</button>
+    <button class="btn btn-clear" onclick="clearAll()">초기화</button>
+  </div>
+
+  <div id="historySection" style="display:none">
+    <p class="history-title">추첨 기록</p>
+    <div class="history" id="history"></div>
+  </div>
+</div>
+
+<script src="lotto.js"></script>
+</body>
+</html>
