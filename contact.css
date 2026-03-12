@@ -1,0 +1,261 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── 테마 변수 ── */
+:root {
+  --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --text: #fff;
+  --text-muted: #aaa;
+  --label: #ccc;
+  --input-bg: rgba(255, 255, 255, 0.07);
+  --input-border: rgba(255, 255, 255, 0.15);
+  --input-border-focus: #f7c948;
+  --input-text: #fff;
+  --input-placeholder: #666;
+  --select-bg: #16213e;
+  --privacy: #666;
+  --theme-btn-bg: rgba(255,255,255,0.1);
+  --theme-btn-border: rgba(255,255,255,0.2);
+  --theme-btn-color: #ccc;
+  --success-bg: rgba(255,255,255,0.04);
+}
+
+body.light {
+  --bg: linear-gradient(135deg, #f0f4ff 0%, #e8eef8 50%, #dce6f5 100%);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --text: #1a1a2e;
+  --text-muted: #666;
+  --label: #444;
+  --input-bg: #fff;
+  --input-border: #d0d8e8;
+  --input-border-focus: #f7b731;
+  --input-text: #1a1a2e;
+  --input-placeholder: #bbb;
+  --select-bg: #fff;
+  --privacy: #aaa;
+  --theme-btn-bg: rgba(0,0,0,0.07);
+  --theme-btn-border: rgba(0,0,0,0.15);
+  --theme-btn-color: #555;
+  --success-bg: rgba(0,0,0,0.03);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--text);
+  padding: 60px 20px 40px;
+  transition: background 0.4s, color 0.3s;
+}
+
+/* ── 테마 토글 ── */
+.theme-toggle {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--theme-btn-border);
+  background: var(--theme-btn-bg);
+  color: var(--theme-btn-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: background 0.3s, border-color 0.3s, transform 0.2s;
+  z-index: 100;
+}
+.theme-toggle:hover { transform: scale(1.12); }
+
+/* ── 카드 ── */
+.container {
+  width: 100%;
+  max-width: 620px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 44px 40px;
+  backdrop-filter: blur(12px);
+  transition: background 0.4s, border-color 0.3s;
+}
+
+.card-header {
+  margin-bottom: 36px;
+}
+
+h1 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #f7c948, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  transition: color 0.3s;
+}
+
+/* ── 폼 ── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--label);
+  margin-bottom: 7px;
+  letter-spacing: 0.3px;
+  transition: color 0.3s;
+}
+
+.required { color: #ff6b6b; margin-left: 2px; }
+
+input, select, textarea {
+  background: var(--input-bg);
+  border: 1.5px solid var(--input-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.92rem;
+  color: var(--input-text);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, background 0.3s, color 0.3s;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px rgba(247,201,72,0.15);
+}
+
+select {
+  background-color: var(--select-bg);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+textarea { resize: vertical; min-height: 110px; }
+
+/* ── 폼 하단 ── */
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.privacy-note {
+  font-size: 0.78rem;
+  color: var(--privacy);
+  transition: color 0.3s;
+}
+
+.btn-submit {
+  padding: 14px 40px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #f7c948, #ff6b6b);
+  color: #1a1a2e;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 20px rgba(247,201,72,0.35);
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(247,201,72,0.5); }
+.btn-submit:active { transform: translateY(0); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ── 스피너 ── */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(26,26,46,0.3);
+  border-top-color: #1a1a2e;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── 성공 메시지 ── */
+.success-msg {
+  text-align: center;
+  padding: 20px 0 10px;
+  background: var(--success-bg);
+  border-radius: 12px;
+}
+
+.success-icon { font-size: 3rem; margin-bottom: 16px; }
+
+.success-msg h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.success-msg p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin-bottom: 28px;
+}
+
+.btn-reset {
+  padding: 12px 36px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 2px solid var(--input-border);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-reset:hover { border-color: #f7c948; color: #f7c948; }
+
+/* ── 반응형 ── */
+@media (max-width: 520px) {
+  .card { padding: 32px 22px; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .form-footer { flex-direction: column; align-items: flex-start; }
+  .btn-submit { width: 100%; justify-content: center; }
+}
